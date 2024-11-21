@@ -1,0 +1,40 @@
+﻿@model IEnumerable<AppClubDeportivo.Models.Actividad>
+
+@{
+    ViewData["Title"] = "Mis Inscripciones";
+}
+
+<h2 class="mb-4 text-center">Mis Inscripciones</h2>
+
+<div class="table-responsive">
+    <table class="table table-striped">
+        <thead class="table-dark">
+            <tr>
+                <th>Actividad</th>
+                <th>Descripción</th>
+                <th>Horario</th>
+                <th>Estado</th>
+            </tr>
+        </thead>
+        <tbody>
+            @if (Model != null && Model.Any())
+            {
+                foreach (var actividad in Model)
+                {
+                    <tr>
+                        <td>@actividad.Nombre</td>
+                        <td>@actividad.Descripcion</td>
+                        <td>@actividad.Horario</td>
+                        <td>Inscripto</td>
+                    </tr>
+                }
+            }
+            else
+            {
+                <tr>
+                    <td colspan="4" class="text-center">No tienes inscripciones activas.</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
