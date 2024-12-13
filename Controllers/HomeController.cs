@@ -52,6 +52,14 @@ namespace AppClubDeportivo.Controllers
                 return RedirectToAction("Login", "Usuario");
             }
 
+            // Validar que la fecha no este en el pasado
+            if (fecha < DateTime.Now.Date)
+            {
+                ViewBag.Error = "La fecha del evento no puede estar en el pasado.";
+                return RedirectToAction("Index");
+            }
+
+
             // Crear un nuevo evento
             var evento = new Evento
             {

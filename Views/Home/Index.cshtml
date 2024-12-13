@@ -1,7 +1,8 @@
-﻿@{
+﻿@model IEnumerable<AppClubDeportivo.Models.Evento>
+
+@{
     ViewData["Title"] = "Inicio";
 }
-
 <h2 class="mb-4">Actividades</h2>
 
 <div id="carouselExample" class="carousel slide">
@@ -63,7 +64,7 @@
 
 <!-- Formulario para crear evento -->
 <h2>Crear Evento</h2>
-<form action="@Url.Action("CrearEvento", "Home")" method="post" class="mb-4">
+<form action="@Url.Action("CrearEvento", "Home")" method="post" class="mb-4" id="eventoForm">
     <div class="mb-3">
         <label for="Nombre" class="form-label">Nombre del Evento</label>
         <input type="text" class="form-control" id="Nombre" name="Nombre" required />
@@ -104,21 +105,26 @@
         </tr>
     </thead>
     <tbody>
-        @foreach (var evento in Model)
+      @*  Se incorpora un condicional validando que model no este vacio *@
+        @if (Model != null && Model.Any())
         {
-            <tr>
-                <td>@evento.Nombre</td>
-                <td>@evento.Sede</td>
-                <td>@evento.Fecha</td>
-                <td>@evento.Descripcion</td>
-                <td>
-                    <a href="@Url.Action("EditarEvento", "Home", new { id = evento.Id })" class="btn btn-warning btn-sm">Editar</a>
-                    <form action="@Url.Action("EliminarEvento", "Home", new { id = evento.Id })" method="post" class="d-inline">
-                        <button type="submit" class="btn btn-danger btn-sm">Eliminar</button>
-                    </form>
-                </td>
-            </tr>
+            @foreach (var evento in Model)
+            {
+                <tr>
+                    <td>@evento.Nombre</td>
+                    <td>@evento.Sede</td>
+                    <td>@evento.Fecha</td>
+                    <td>@evento.Descripcion</td>
+                    <td>
+                        <a href="@Url.Action("EditarEvento", "Home", new { id = evento.Id })" class="btn btn-warning btn-sm">Editar</a>
+                        <form action="@Url.Action("EliminarEvento", "Home", new { id = evento.Id })" method="post" class="d-inline">
+                            <button type="submit" class="btn btn-danger btn-sm">Eliminar</button>
+                        </form>
+                    </td>
+                </tr>
+            }
         }
+        
     </tbody>
 </table>
 
